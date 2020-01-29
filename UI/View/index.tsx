@@ -35,10 +35,12 @@ export default (props: ViewProps) => {
   const shadowStyle = !!shadow ? UIShadow : {};
   const safeAreaStyle = {
     paddingTop:
-      type === "SafeAreaView" && Platform.OS === "android" ? statusbar : 0
+      type === "SafeAreaView" && Platform.OS === "android"
+        ? statusbar
+        : undefined
   };
   let cstyle = StyleSheet.flatten([
-    { backgroundColor: "#fff", padding: 10 },
+    { backgroundColor: "#fff", padding: 5, margin: 5 },
     shadowStyle,
     safeAreaStyle,
     style

@@ -18,3 +18,5 @@ export const UIColors = {
 export const UIFontSize = 16;
 
 export const UIFontFamily = "SourceSansPro-Regular";
+
+export const UIImageLoading = require("../../asset/image/loading.png");

@@ -3,7 +3,8 @@ import React from "react";
 import {
   TouchableOpacity,
   TouchableOpacityProps,
-  StyleSheet
+  StyleSheet,
+  ViewStyle
 } from "react-native";
 import { UIShadow, UIColors } from "../theme";
 
@@ -19,8 +20,9 @@ export default (props: ButtonProps) => {
     opacity: !!disabled ? 0.5 : 1
   };
   const shadowStyle = !!shadow ? UIShadow : {};
-  const baseStyle = {
+  const baseStyle: ViewStyle = {
     backgroundColor: UIColors.primary,
+    flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 4,

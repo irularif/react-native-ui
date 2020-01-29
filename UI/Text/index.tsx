@@ -9,7 +9,7 @@ import _ from "lodash";
 import { UIFontFamily, UIFontSize } from "../theme";
 
 export interface TextProps extends OriginTextProps {
-  children: string;
+  children: any;
   color?: "white" | "black";
 }
 

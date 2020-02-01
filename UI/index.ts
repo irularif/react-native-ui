@@ -3,3 +3,7 @@ export { default as View } from "./View";
 export { default as Button } from "./Button";
 export { default as Text } from "./Text";
 export { default as Image } from "./Image";
+export { default as FlatList } from "./FlatList";
+export { default as SectionList } from "./SectionList";
+export { default as ImageBackground } from "./ImageBackground";
+export { default as TextInput } from "./TextInput";

@@ -26,7 +26,8 @@ export default (props: ButtonProps) => {
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 4,
-    minWidth: 30,
+    minWidth: 45,
+    minHeight: 45,
     padding: 5,
     margin: 5
   };

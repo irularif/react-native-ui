@@ -6,4 +6,7 @@ export { default as Image } from "./Image";
 export { default as FlatList } from "./FlatList";
 export { default as SectionList } from "./SectionList";
 export { default as ImageBackground } from "./ImageBackground";
-export { default as TextInput } from "./TextInput";
+export { default as Input } from "./Input";
+export { default as TopBar } from "./TopBar";
+export { default as Container } from "./Container";
+export { default as Screen } from "./Screen";

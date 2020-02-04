@@ -1,7 +1,9 @@
 import React from "react";
 import { SectionList, SectionListProps } from "react-native";
 
-export default (props: SectionListProps<any>) => {
+export interface ISectionListProps extends SectionListProps<any> {}
+
+export default (props: ISectionListProps) => {
   return (
     <SectionList
       initialNumToRender={20}

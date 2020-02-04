@@ -1,11 +1,13 @@
 import React from "react";
 import { FlatList, FlatListProps } from "react-native";
 
-export default (props: FlatListProps<any>) => {
+export interface IFlatListProps extends FlatListProps<any> {}
+
+export default (props: IFlatListProps) => {
   return (
     <FlatList
       initialNumToRender={20}
-      maxToRenderPerBatch={100}
+      maxToRenderPerBatch={20}
       windowSize={20}
       removeClippedSubviews={true}
       {...props}

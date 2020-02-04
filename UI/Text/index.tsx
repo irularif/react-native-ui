@@ -6,20 +6,20 @@ import {
   TextStyle
 } from "react-native";
 import _ from "lodash";
-import { UIFontFamily, UIFontSize } from "../theme";
+import Theme from "../../theme";
 
-export interface TextProps extends OriginTextProps {
+export interface ITextProps extends OriginTextProps {
   children: any;
-  color?: "white" | "black";
+  color?: "white" | "black" | string;
 }
 
-export default (props: TextProps) => {
+export default (props: ITextProps) => {
   const { style, color } = props;
   const baseStyle: TextStyle = {
-    margin: 5,
-    fontFamily: UIFontFamily,
-    fontSize: UIFontSize,
-    color
+    margin: 4,
+    fontFamily: Theme.UIFontFamily,
+    fontSize: Theme.UIFontSize,
+    color: color || Theme.UIColors.text
   };
   const cstyle = StyleSheet.flatten([baseStyle, style]);
 

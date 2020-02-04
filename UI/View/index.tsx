@@ -1,21 +1,18 @@
 import React from "react";
 import {
-  View,
-  ViewProps as OriViewProps,
-  ScrollViewProps,
-  KeyboardAvoidingViewProps,
-  StatusBar,
-  KeyboardAvoidingView,
-  SafeAreaView,
   Animated,
+  KeyboardAvoidingView,
+  KeyboardAvoidingViewProps,
+  ScrollViewProps,
   StyleSheet,
-  Platform
+  View,
+  ViewProps as OriViewProps
 } from "react-native";
-import { SafeAreaViewProps } from "react-navigation";
 import { ScrollView } from "react-native-gesture-handler";
-import _ from "lodash";
-import { UIShadow } from "../theme";
-export interface ViewProps
+import { SafeAreaViewProps } from "react-navigation";
+import Theme from "../../theme";
+
+export interface IViewProps
   extends OriViewProps,
     ScrollViewProps,
     SafeAreaViewProps,
@@ -29,46 +26,32 @@ export interface ViewProps
   shadow?: boolean;
 }
 
-export default (props: ViewProps) => {
+export default (props: IViewProps) => {
   const { type, shadow, style } = props;
-  const statusbar = StatusBar.currentHeight || 0;
-  const shadowStyle = !!shadow ? UIShadow : {};
-  const safeAreaStyle = {
-    paddingTop:
-      type === "SafeAreaView" && Platform.OS === "android"
-        ? statusbar
-        : undefined
-  };
-  let cstyle = StyleSheet.flatten([
-    { backgroundColor: "#fff", padding: 5, margin: 5 },
-    shadowStyle,
-    safeAreaStyle,
-    style
-  ]);
+  const shadowStyle = !!shadow ? Theme.UIShadow : {};
+  let cstyle = StyleSheet.flatten([shadowStyle, style]);
 
-  if (type === "SafeAreaView")
-    return <SafeAreaView {...props} style={cstyle} />;
-  if (type === "AnimatedView")
-    return <Animated.View {...props} style={cstyle} />;
-  if (type === "ScrollView") {
-    return (
-      <ScrollView
-        {...props}
-        keyboardShouldPersistTaps={"handled"}
-        style={cstyle}
-      />
-    );
+  switch (type) {
+    case "AnimatedView":
+      return <Animated.View {...props} style={cstyle} />;
+    case "ScrollView":
+      return (
+        <ScrollView
+          {...props}
+          keyboardShouldPersistTaps={"handled"}
+          style={cstyle}
+        />
+      );
+    case "KeyboardAvoidingView":
+      return (
+        <KeyboardAvoidingView
+          behavior="padding"
+          enabled
+          {...props}
+          style={cstyle}
+        />
+      );
+    default:
+      return <View {...props} style={cstyle} />;
   }
-  if (type === "KeyboardAvoidingView") {
-    return (
-      <KeyboardAvoidingView
-        behavior="padding"
-        enabled
-        {...props}
-        style={cstyle}
-      />
-    );
-  }
-
-  return <View {...props} style={cstyle} />;
 };

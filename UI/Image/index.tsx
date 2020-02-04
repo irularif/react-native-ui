@@ -1,18 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Image,
   ImageProps as OriginImageProps,
   StyleSheet,
   ImageStyle
 } from "react-native";
-import { UIImageLoading } from "../theme";
+import _ from "lodash";
+import Theme from "../../theme";
 
-export interface ImageProps extends OriginImageProps {}
+export interface IImageProps extends OriginImageProps {}
 
-export default (props: ImageProps) => {
+export default (props: IImageProps) => {
   const { style, source } = props;
+  const [error, setError] = useState(false);
   const baseStyle: ImageStyle = {
-    margin: 5,
+    margin: 4,
     width: 300,
     height: 150
   };
@@ -26,12 +28,28 @@ export default (props: ImageProps) => {
   }
 
   return (
-    <Image
-      resizeMode={"contain"}
-      defaultSource={UIImageLoading}
-      {...props}
-      source={csource}
-      style={cstyle}
-    />
+    <>
+      {error ? (
+        <Image
+          resizeMode={"contain"}
+          defaultSource={Theme.UIImageLoading}
+          {...props}
+          source={csource}
+          style={cstyle}
+          onError={e => {
+            const err = _.get(e, "mativeEvent.error", "");
+            if (!!err) setError(true);
+          }}
+        />
+      ) : (
+        <Image
+          resizeMode={"contain"}
+          defaultSource={Theme.UIImageLoading}
+          {...props}
+          source={csource}
+          style={cstyle}
+        />
+      )}
+    </>
   );
 };

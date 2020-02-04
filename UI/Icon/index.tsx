@@ -2,7 +2,7 @@ import * as IconSource from "@expo/vector-icons";
 import React from "react";
 import { ViewStyle, StyleSheet } from "react-native";
 
-export interface IconProps {
+export interface IIconProps {
   source?:
     | "AntDesign"
     | "Entypo"
@@ -21,11 +21,11 @@ export interface IconProps {
   color?: string;
   style?: ViewStyle;
 }
-export default (props: IconProps) => {
-  const { source, style, size, name } = props;
+export default (props: IIconProps) => {
+  const { source, style, size } = props;
   const Icon: any = (IconSource as any)[source || "Ionicons"];
   const baseStyle = {
-    margin: 5
+    margin: 4
   };
   const cstyle = StyleSheet.flatten([baseStyle, style]);
   const csize = size || 20;

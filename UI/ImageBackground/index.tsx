@@ -5,14 +5,13 @@ import {
   ImageBackground,
   ImageBackgroundProps as OriginImageBackgroundProps
 } from "react-native";
-import { UIImageLoading } from "../theme";
+import Theme from "../../theme";
 
-export interface ImageBackgroundProps extends OriginImageBackgroundProps {}
+export interface IImageBackgroundProps extends OriginImageBackgroundProps {}
 
-export default (props: ImageBackgroundProps) => {
+export default (props: IImageBackgroundProps) => {
   const { style, source } = props;
   const baseStyle: ImageStyle = {
-    margin: 5,
     width: "100%",
     height: "100%"
   };
@@ -27,7 +26,7 @@ export default (props: ImageBackgroundProps) => {
   return (
     <ImageBackground
       resizeMode={"contain"}
-      defaultSource={UIImageLoading}
+      defaultSource={Theme.UIImageLoading}
       {...props}
       source={csource}
       style={cstyle}

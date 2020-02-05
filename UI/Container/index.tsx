@@ -1,7 +1,7 @@
 import React from "react";
-import View, { ViewProps } from "../View";
+import View, { IViewProps } from "../View";
 
-export interface IContainerProps extends ViewProps {}
+export interface IContainerProps extends IViewProps {}
 
 export default (props: IContainerProps) => {
   return (

@@ -10,3 +10,4 @@ export { default as Input } from "./Input";
 export { default as TopBar } from "./TopBar";
 export { default as Container } from "./Container";
 export { default as Screen } from "./Screen";
+export { default as Carousel } from "./Carousel";

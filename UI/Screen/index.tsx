@@ -11,7 +11,7 @@ export default (props: IScreenProps) => {
   const safeAreaStyle: ViewStyle = {
     flexGrow: 1,
     flexShrink: 1,
-    backgroundColor: "#fff",
+    backgroundColor: Theme.UIColors.background,
     padding: 0,
     margin: 0
   };

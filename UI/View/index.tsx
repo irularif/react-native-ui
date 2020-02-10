@@ -24,20 +24,22 @@ export interface IViewProps
     | "ScrollView"
     | "KeyboardAvoidingView";
   shadow?: boolean;
+  childRef?: any;
 }
 
 export default (props: IViewProps) => {
-  const { type, shadow, style } = props;
+  const { type, shadow, style, childRef } = props;
   const shadowStyle = !!shadow ? Theme.UIShadow : {};
   let cstyle = StyleSheet.flatten([shadowStyle, style]);
 
   switch (type) {
     case "AnimatedView":
-      return <Animated.View {...props} style={cstyle} />;
+      return <Animated.View ref={childRef} {...props} style={cstyle} />;
     case "ScrollView":
       return (
         <ScrollView
           {...props}
+          ref={childRef}
           keyboardShouldPersistTaps={"handled"}
           style={cstyle}
         />
@@ -48,10 +50,11 @@ export default (props: IViewProps) => {
           behavior="padding"
           enabled
           {...props}
+          ref={childRef}
           style={cstyle}
         />
       );
     default:
-      return <View {...props} style={cstyle} />;
+      return <View {...props} style={cstyle} ref={childRef} />;
   }
 };

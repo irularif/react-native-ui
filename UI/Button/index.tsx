@@ -34,7 +34,8 @@ export default (props: IButtonProps) => {
     margin: 4
   };
   const containedStyle: ViewStyle = {
-    backgroundColor: Theme.UIColors.primary
+    backgroundColor: Theme.UIColors.primary,
+    borderColor: Theme.UIColors.primary
   };
   const outlinedStyle: ViewStyle = {
     borderWidth: 1,

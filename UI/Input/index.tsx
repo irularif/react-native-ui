@@ -92,7 +92,6 @@ export default (props: IInputProps) => {
     onChangeText: onChange,
     style: cstyle
   };
-
   switch (typeof value) {
     case "object":
       return <Text>{value}</Text>;

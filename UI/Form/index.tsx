@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import View, { IViewProps } from "../View";
 import _ from "lodash";
 import { randomStr } from "../../util/index";
 import Field from "../Field";
 import Button from "../Button";
+import { useObservable, observer } from "mobx-react-lite";
+import { toJS } from "mobx";
 
 export interface IFromProps extends IViewProps {
   data?: any;
@@ -13,10 +15,9 @@ export interface IFromProps extends IViewProps {
   children?: any;
 }
 
-export default (props: IFromProps) => {
+export default observer((props: IFromProps) => {
   const { children, data, setValue, style, onSubmit } = props;
-  const [validate, setValidate] = useState({
-    count: 0,
+  const meta = useObservable({
     fields: {}
   });
   return (
@@ -28,9 +29,8 @@ export default (props: IFromProps) => {
             setValue={setValue}
             child={el}
             key={randomStr()}
-            validate={validate}
-            setValidate={setValidate}
             onSubmit={onSubmit}
+            meta={meta}
           />
         ))
       ) : (
@@ -39,17 +39,16 @@ export default (props: IFromProps) => {
           setValue={setValue}
           child={children}
           key={randomStr()}
-          validate={validate}
-          setValidate={setValidate}
           onSubmit={onSubmit}
+          meta={meta}
         />
       )}
     </View>
   );
-};
+});
 
-const RenderChild = (props: any) => {
-  const { data, child, setValue, validate, setValidate, onSubmit } = props;
+const RenderChild = observer((props: any) => {
+  const { data, child, setValue, onSubmit, meta } = props;
   if (child.type === Field) {
     let custProps: any = child.props;
     let val = true;
@@ -57,9 +56,9 @@ const RenderChild = (props: any) => {
       val = !!_.get(data, child.props.path, null);
     }
 
-    validate.fields[child.props.path] = val;
-    // setValidate(_.cloneDeep(validate));
+    meta.fields[child.props.path] = val;
     const defaultSetValue = (value: any, path: any) => {
+      meta.fields[path] = !!value;
       if (!!setValue) setValue(value, path);
       else {
         if (data) {
@@ -71,8 +70,8 @@ const RenderChild = (props: any) => {
     };
     custProps = {
       ...custProps,
-      isValid: validate.fields[child.props.path],
-      value: _.get(data, child.props.path),
+      isValid: meta.fields[child.props.path],
+      value: _.get(data, child.props.path, ""),
       setValue: (value: any) => defaultSetValue(value, child.props.path)
     };
     const Component = child.type;
@@ -82,13 +81,11 @@ const RenderChild = (props: any) => {
     if (child.props.type === "Submit") {
       const onPress = e => {
         let i = 0;
-        Object.keys(validate.fields).map(e => {
-          if (!validate.fields[e]) {
+        Object.keys(meta.fields).map(e => {
+          if (!meta.fields[e]) {
             ++i;
           }
         });
-        validate.count = i;
-        // setValidate(_.cloneDeep(validate));
         if (i === 0) {
           onSubmit && onSubmit(data);
         }
@@ -114,8 +111,7 @@ const RenderChild = (props: any) => {
               setValue={setValue}
               child={el}
               key={randomStr()}
-              validate={validate}
-              setValidate={setValidate}
+              meta={meta}
               onSubmit={onSubmit}
             />
           ))
@@ -125,12 +121,11 @@ const RenderChild = (props: any) => {
             setValue={setValue}
             child={children}
             key={randomStr()}
-            validate={validate}
-            setValidate={setValidate}
+            meta={meta}
             onSubmit={onSubmit}
           />
         )}
       </Component>
     );
   }
-};
+});

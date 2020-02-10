@@ -1,9 +1,19 @@
 import React from "react";
-import View, { IViewProps } from "../View";
+import { ScrollViewProps, StyleSheet, ViewStyle } from "react-native";
+import View from "../View";
+import _ from "lodash";
 
-export interface IContainerProps extends IViewProps {}
+export interface IContainerProps extends ScrollViewProps {
+  children?: any;
+  scrollRef?: any;
+}
 
 export default (props: IContainerProps) => {
+  const { contentContainerStyle, scrollRef } = props;
+  const baseStyle: ViewStyle = {
+    flexGrow: 1
+  };
+  const cstyle = StyleSheet.flatten([baseStyle, contentContainerStyle]);
   return (
     <View
       type={"KeyboardAvoidingView"}
@@ -14,12 +24,14 @@ export default (props: IContainerProps) => {
     >
       <View
         type={"ScrollView"}
+        {...props}
         style={{
           flexGrow: 1,
           flexShrink: 1
         }}
-        contentContainerStyle={{ flexGrow: 1 }}
-        {...props}
+        keyboardShouldPersistTaps={"handled"}
+        childRef={scrollRef}
+        contentContainerStyle={cstyle}
       />
     </View>
   );

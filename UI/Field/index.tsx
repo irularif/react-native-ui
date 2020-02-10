@@ -39,10 +39,7 @@ export default (props: IFieldProps) => {
   ]);
   const childprops = _.cloneDeep(_.get(props, "children.props", {}));
   childprops.value = _.get(props, "value", "");
-  childprops.onChangeText = (value: any) => {
-    props.setValue(value);
-  };
-
+  childprops.onChangeText = props.setValue;
   useEffect(() => {
     if (!meta.init) {
       meta.error = !isValid;

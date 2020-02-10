@@ -11,9 +11,7 @@ export default (props: IScreenProps) => {
   const safeAreaStyle: ViewStyle = {
     flexGrow: 1,
     flexShrink: 1,
-    backgroundColor: Theme.UIColors.background,
-    padding: 0,
-    margin: 0
+    backgroundColor: Theme.UIColors.background
   };
   let cstyle = StyleSheet.flatten([safeAreaStyle, style]);
   const statusbarStyle: ViewStyle = {

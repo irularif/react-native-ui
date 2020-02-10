@@ -8,17 +8,26 @@ import {
 import _ from "lodash";
 import Theme from "../../theme";
 
-export interface IImageProps extends OriginImageProps {}
+export interface IImageProps extends OriginImageProps {
+  mode?: "avatar";
+}
 
 export default (props: IImageProps) => {
-  const { style, source } = props;
+  const { style, source, mode } = props;
   const [error, setError] = useState(false);
   const baseStyle: ImageStyle = {
     margin: 4,
     width: 300,
     height: 150
   };
-  const cstyle = StyleSheet.flatten([baseStyle, style]);
+  const avatarStyle = {
+    width: 45,
+    height: 45,
+    borderRadius: 99,
+    overflow: "hidden"
+  };
+  const modeStyle = mode === "avatar" ? avatarStyle : {};
+  const cstyle = StyleSheet.flatten([baseStyle, modeStyle, style]);
   let csource: any = source;
   if (typeof source === "object") {
     csource = {

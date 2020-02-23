@@ -35,7 +35,6 @@ export default (props: IImageProps) => {
       cache: "force-cache"
     };
   }
-
   return (
     <>
       {error ? (

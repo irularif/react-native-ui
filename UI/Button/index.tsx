@@ -11,7 +11,7 @@ import Theme from "../../theme";
 export interface IButtonProps extends TouchableOpacityProps {
   shadow?: Boolean;
   type?: "Submit" | string;
-  children: any;
+  children?: any;
   mode?: "contained" | "outlined" | "clean";
 }
 

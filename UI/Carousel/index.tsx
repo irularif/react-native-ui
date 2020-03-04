@@ -5,46 +5,37 @@ import { Dimensions } from "react-native";
 import Carousel, {
   CarouselProps as OriginCarouselProps,
   Pagination as PaginationOrigin,
-  PaginationProps
+  PaginationProps as PaginationPropsOrigin
 } from "react-native-snap-carousel";
 import View from "../View";
+import { randomStr } from "@src/libs/util";
+import { useObservable, observer } from "mobx-react-lite";
 
 export interface CarouselProps extends OriginCarouselProps<any> {
-  data: any[];
   children?: any;
-  style?: any;
 }
 
-export default (props: CarouselProps) => {
-  const { style, data, children } = props;
+export default observer((props: CarouselProps) => {
+  const { children, data } = props;
   const carouselProps: any = { ...props };
-  delete carouselProps.style;
-  delete carouselProps.data;
   const ref = useRef(null);
   const dim = Dimensions.get("window");
-  const [meta, setMeta] = useState({
+  const meta = useObservable({
     activeSlide: 0,
-    dataLength: 0,
-    data: []
+    dataLength: data.length
   });
+  const onSnapItem = index => {
+    meta.activeSlide = index;
+    carouselProps.onSnapToItem && carouselProps.onSnapToItem(index);
+  };
 
   useEffect(() => {
-    if (data && data.length > 0) {
-      const nmeta = _.cloneDeep(meta);
-      nmeta.data = data;
-      nmeta.dataLength = data.length;
-      setMeta(nmeta);
-    }
+    meta.dataLength = data.length;
   }, [data]);
 
-  const childrenWithProps = React.Children.map(children, child => {
-    return renderChild(child, meta);
-  });
-
   return (
-    <View style={style}>
+    <>
       <Carousel
-        data={meta.data}
         ref={ref}
         itemWidth={dim.width - 50}
         sliderWidth={dim.width}
@@ -53,17 +44,21 @@ export default (props: CarouselProps) => {
           overflow: "visible"
         }}
         {...carouselProps}
-        onSnapToItem={index => {
-          meta.activeSlide = index;
-          carouselProps.onSnapToItem && carouselProps.onSnapToItem(index);
-        }}
+        onSnapToItem={onSnapItem}
       />
-      {childrenWithProps}
-    </View>
+      {!!children &&
+        (Array.isArray(children) ? (
+          children.map(child => {
+            return <RenderChild key={randomStr()} child={child} meta={meta} />;
+          })
+        ) : (
+          <RenderChild child={children} meta={meta} />
+        ))}
+    </>
   );
-};
+});
 
-export const Pagination = (props: PaginationProps) => {
+export const Pagination = observer((props: any | PaginationPropsOrigin) => {
   return (
     <PaginationOrigin
       dotsLength={0}
@@ -87,29 +82,20 @@ export const Pagination = (props: PaginationProps) => {
       {...props}
     />
   );
-};
+});
 
-const renderChild = (child: any, meta: any) => {
+const RenderChild = observer(({ child, meta }: any) => {
   if (child.type === Pagination) {
     let cprops = {
       dotsLength: meta.dataLength,
       activeDotIndex: meta.activeSlide
     };
-    return React.cloneElement(child, {
-      ...cprops,
-      ...child.props
-    });
+    const Component = child.type;
+    return <Component {...child.props} {...cprops} />;
+  } else if (!child || !child.type || !child.props) {
+    return child;
   } else {
-    const childrenRaw = _.get(child, "props.children");
-    const hasChildren = !!childrenRaw;
-    if (!hasChildren) {
-      return child;
-    } else {
-      const children = Array.isArray(childrenRaw) ? childrenRaw : [childrenRaw];
-      return React.cloneElement(child, {
-        ...child.props,
-        children: React.Children.map(children, el => renderChild(el, meta))
-      });
-    }
+    const Component = child.type;
+    return <Component {...child.props} />;
   }
-};
+});

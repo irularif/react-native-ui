@@ -100,32 +100,7 @@ const RenderChild = observer((props: any) => {
   } else if (!child || !child.type || !child.props) {
     return child;
   } else {
-    const children = child.props.children;
     const Component = child.type;
-    return (
-      <Component {...child.props}>
-        {Array.isArray(children) ? (
-          children.map(el => (
-            <RenderChild
-              data={data}
-              setValue={setValue}
-              child={el}
-              key={randomStr()}
-              meta={meta}
-              onSubmit={onSubmit}
-            />
-          ))
-        ) : (
-          <RenderChild
-            data={data}
-            setValue={setValue}
-            child={children}
-            key={randomStr()}
-            meta={meta}
-            onSubmit={onSubmit}
-          />
-        )}
-      </Component>
-    );
+    return <Component {...child.props} />;
   }
 });

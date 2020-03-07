@@ -19,9 +19,10 @@ export type InputType =
 export interface IInputProps extends OriginTextInputProps {
   type?: InputType;
   onChangeText?: (value) => void;
+  readonly?: boolean;
 }
 export default (props: IInputProps) => {
-  const { type, style, value, onChangeText } = props;
+  const { type, style, value, onChangeText, readonly } = props;
   let valueType = type;
   let cvalue = value;
   const onChange = input => {
@@ -90,7 +91,8 @@ export default (props: IInputProps) => {
     ...props,
     ...tprops,
     onChangeText: onChange,
-    style: cstyle
+    style: cstyle,
+    editable: readonly
   };
   switch (typeof value) {
     case "object":

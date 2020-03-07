@@ -78,7 +78,7 @@ const RenderChild = observer((props: any) => {
     return <Component {...custProps} />;
   } else if (child.type === Button) {
     let custProps: any = child.props;
-    if (child.props.type === "Submit") {
+    if (child.props.type == "Submit") {
       const onPress = e => {
         let i = 0;
         Object.keys(meta.fields).map(e => {

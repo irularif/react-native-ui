@@ -13,10 +13,12 @@ interface IFieldProps {
   style?: any;
   isRequired?: boolean;
   isValid?: boolean;
+  readonly?: boolean;
+  onChange?: (value) => void;
 }
 
 export default (props: IFieldProps) => {
-  const { label, isValid } = props;
+  const { label, isValid, readonly, onChange } = props;
   const [meta, setMeta] = useState({
     error: false,
     init: true
@@ -37,9 +39,14 @@ export default (props: IFieldProps) => {
     defErrorLabelStyle,
     Theme.UILabel
   ]);
+  const handleOnChange = value => {
+    onChange && onChange(value);
+    props.setValue(value);
+  };
   const childprops = _.cloneDeep(_.get(props, "children.props", {}));
   childprops.value = _.get(props, "value", "");
-  childprops.onChangeText = props.setValue;
+  childprops.onChangeText = handleOnChange;
+  childprops.readonly = !readonly;
   useEffect(() => {
     if (!meta.init) {
       meta.error = !isValid;

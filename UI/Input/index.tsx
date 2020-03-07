@@ -82,7 +82,8 @@ export default (props: IInputProps) => {
     minWidth: 120,
     fontSize: Theme.UIFontSize,
     fontFamily: Theme.UIFontFamily,
-    maxHeight: 240
+    maxHeight: 240,
+    opacity: !!readonly ? 0.7 : 1
   };
   const cstyle = StyleSheet.flatten([baseStyle, style]);
 
@@ -92,7 +93,7 @@ export default (props: IInputProps) => {
     ...tprops,
     onChangeText: onChange,
     style: cstyle,
-    editable: readonly
+    editable: !readonly
   };
   switch (typeof value) {
     case "object":

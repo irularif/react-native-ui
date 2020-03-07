@@ -3,6 +3,7 @@ import {
   Animated,
   KeyboardAvoidingView,
   KeyboardAvoidingViewProps,
+  SafeAreaView,
   ScrollViewProps,
   StyleSheet,
   View,
@@ -35,6 +36,8 @@ export default (props: IViewProps) => {
   switch (type) {
     case "AnimatedView":
       return <Animated.View ref={childRef} {...props} style={cstyle} />;
+    case "SafeAreaView":
+      return <SafeAreaView ref={childRef} {...props} style={cstyle} />;
     case "ScrollView":
       return (
         <ScrollView

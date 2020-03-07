@@ -18,3 +18,4 @@ export { default as Spinner } from "./Spinner";
 export { default as TabBar } from "./TabBar";
 export { default as MapView, Marker } from "./MapView";
 export { default as Modal } from "./Modal";
+export { default as Select } from "./Select";

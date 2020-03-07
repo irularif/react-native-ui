@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
 import _ from "lodash";
-import Text from "../Text";
-import Theme from "../../theme";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, TextStyle } from "react-native";
+import Theme from "../../theme";
+import Select from "../Select";
+import Text from "../Text";
 
 interface IFieldProps {
   label?: string;
@@ -44,9 +45,23 @@ export default (props: IFieldProps) => {
     props.setValue(value);
   };
   const childprops = _.cloneDeep(_.get(props, "children.props", {}));
-  childprops.value = _.get(props, "value", "");
-  childprops.onChangeText = handleOnChange;
-  childprops.readonly = !readonly;
+  childprops.readonly = readonly;
+
+  switch (Component) {
+    case Select:
+      childprops.value = _.get(props, "value", "");
+      childprops.onChangeText = handleOnChange;
+      childprops.searchProps = {
+        placeholder: "Search " + label
+      };
+      break;
+
+    default:
+      childprops.value = _.get(props, "value", "");
+      childprops.onChangeText = handleOnChange;
+      break;
+  }
+
   useEffect(() => {
     if (!meta.init) {
       meta.error = !isValid;

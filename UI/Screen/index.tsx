@@ -1,16 +1,23 @@
-import React from "react";
-import View from "../View";
 import Constants from "expo-constants";
-import { ViewStyle, StyleSheet, ViewProps } from "react-native";
+import React from "react";
+import {
+  StatusBar,
+  StatusBarProps,
+  StyleSheet,
+  ViewProps,
+  ViewStyle
+} from "react-native";
 import Theme from "../../theme";
+import View from "../View";
 
 export interface IScreenProps extends ViewProps {
   children?: any;
   statusbarStyle?: any;
+  statusBarProps?: StatusBarProps;
 }
 
 export default (props: IScreenProps) => {
-  const { style, statusbarStyle } = props;
+  const { style, statusbarStyle, statusBarProps } = props;
   const safeAreaStyle: ViewStyle = {
     flexGrow: 1,
     flexShrink: 1,
@@ -30,7 +37,13 @@ export default (props: IScreenProps) => {
   ]);
   return (
     <>
-      <View style={cstatusbarStyle} />
+      <View style={cstatusbarStyle}>
+        <StatusBar
+          backgroundColor={Theme.UIColors.primary}
+          barStyle={"light-content"}
+          {...statusBarProps}
+        />
+      </View>
       <View {...props} style={cstyle} />
     </>
   );

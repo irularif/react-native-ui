@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import {
-  Image,
+  Image as ImageOrigin,
   ImageProps as OriginImageProps,
   StyleSheet,
   ImageStyle,
@@ -14,34 +14,47 @@ import View from "../View";
 import Button from "../Button";
 import Icon from "../Icon";
 
-const ImageError = require("../../asset/image/error.png");
+const ImageError =
+  require("../../../asset/image/logo.png") ||
+  require("../../asset/image/error.png");
+const Logo = require("../../../asset/image/logo.png") || Theme.UIImageLoading;
 
 export interface IImageProps extends OriginImageProps {
   mode?: "avatar";
+  modeStyle?: ViewStyle;
   preview?: boolean;
   previewProps?: ModalProps;
+  previewImageProps?: OriginImageProps | any;
   previewStyle?: ViewStyle;
   previewWrapperStyle?: ViewStyle;
   previewImageStyle?: ViewStyle;
 }
 
-export default (props: IImageProps) => {
-  const { style, source, mode, preview } = props;
+const Image = (props: IImageProps) => {
+  const { style, source, mode, preview, modeStyle } = props;
   const [error, setError] = useState(false);
   const [show, setShow] = useState(false);
   const baseStyle: ImageStyle = {
-    margin: 4,
-    width: 300,
+    width: "100%",
     height: 150
   };
-  const avatarStyle = {
+  const avatarImgStyle = {
     width: 45,
-    height: 45,
-    borderRadius: 999,
-    overflow: "hidden"
+    height: 45
   };
-  const modeStyle = mode === "avatar" ? avatarStyle : {};
-  const cstyle = StyleSheet.flatten([baseStyle, modeStyle, style]);
+  const avatarStyle = {
+    width: 50,
+    height: 50,
+    borderRadius: 999,
+    overflow: "hidden",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: Theme.UIColors.primary
+  };
+  const cmodeStyle = mode === "avatar" ? avatarStyle : {};
+  const modeImgStyle = mode === "avatar" ? avatarImgStyle : {};
+  const cstyle = StyleSheet.flatten([baseStyle, modeImgStyle, style]);
+  const cmodstyle = StyleSheet.flatten([cmodeStyle, modeStyle]);
 
   const btnStyle: ViewStyle = {
     ...cstyle,
@@ -61,22 +74,36 @@ export default (props: IImageProps) => {
   const onPress = () => {
     setShow(!show);
   };
-
+  const onError = e => {
+    const err = _.get(e, "nativeEvent.error", "");
+    console.log(err);
+    if (!!err) setError(true);
+  };
   return (
     <>
       {!error ? (
         <>
-          <Image
-            resizeMode={"contain"}
-            defaultSource={Theme.UIImageLoading}
-            {...props}
-            source={csource}
-            style={cstyle}
-            onError={e => {
-              const err = _.get(e, "mativeEvent.error", "");
-              if (!!err) setError(true);
-            }}
-          />
+          {mode === "avatar" ? (
+            <View style={cmodstyle}>
+              <ImageOrigin
+                resizeMode={"contain"}
+                defaultSource={Logo}
+                {...props}
+                source={csource}
+                style={cstyle}
+                onError={onError}
+              />
+            </View>
+          ) : (
+            <ImageOrigin
+              resizeMode={"contain"}
+              defaultSource={Logo}
+              {...props}
+              source={csource}
+              style={cstyle}
+              onError={onError}
+            />
+          )}
           <Button
             activeOpacity={preview ? 0.7 : 1}
             style={btnStyle}
@@ -85,10 +112,10 @@ export default (props: IImageProps) => {
           ></Button>
         </>
       ) : (
-        <Image
-          resizeMode={"contain"}
-          defaultSource={Theme.UIImageLoading}
+        <ImageOrigin
+          defaultSource={Logo}
           {...props}
+          resizeMode={"contain"}
           source={ImageError}
           style={cstyle}
         />
@@ -118,7 +145,9 @@ const PreviewImage = (props: any) => {
   const baseImgStyle = {
     width: "100%",
     height: "100%",
-    margin: 10
+    margin: 10,
+    maxWidth: dim.width,
+    maxHeight: dim.height
   };
   const imageStyle = StyleSheet.flatten([
     baseImgStyle,
@@ -131,7 +160,13 @@ const PreviewImage = (props: any) => {
       {...imgProps.previewProps}
     >
       <View style={modalStyle}>
-        <Image resizeMode={"contain"} {...imgProps} style={imageStyle} />
+        <Image
+          resizeMode={"contain"}
+          {...imgProps}
+          {...imgProps.previewImageProps}
+          style={imageStyle}
+          preview={false}
+        />
         <Button
           style={{
             minWidth: 40,
@@ -162,3 +197,5 @@ const PreviewImage = (props: any) => {
     </Modal>
   );
 };
+
+export default Image;

@@ -1,7 +1,9 @@
 import React from "react";
 import { FlatList, FlatListProps } from "react-native";
 
-export interface IFlatListProps extends FlatListProps<any> {}
+export interface IFlatListProps extends FlatListProps<any> {
+  childRef?: any;
+}
 
 export default (props: IFlatListProps) => {
   return (
@@ -11,6 +13,7 @@ export default (props: IFlatListProps) => {
       windowSize={20}
       removeClippedSubviews={true}
       {...props}
+      ref={props.childRef}
     />
   );
 };

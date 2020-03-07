@@ -27,7 +27,6 @@ export interface IImageProps extends OriginImageProps {
   previewImageProps?: OriginImageProps | any;
   previewStyle?: ViewStyle;
   previewWrapperStyle?: ViewStyle;
-  previewImageStyle?: ViewStyle;
 }
 
 const Image = (props: IImageProps) => {
@@ -136,22 +135,32 @@ const PreviewImage = (props: any) => {
     flexShrink: 1,
     flexGrow: 1,
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "stretch",
+    flexDirection: "column"
   };
   const modalStyle = StyleSheet.flatten([
     baseModalStyle,
     imgProps.previewStyle
   ]);
+  const baseWrapperStyle = {
+    padding: 0,
+    justifyContent: "center",
+    alignItems: "stretch",
+    flexShrink: 1
+  };
+  const wrapperStyle = StyleSheet.flatten([
+    baseWrapperStyle,
+    imgProps.previewWrapperStyle
+  ]);
   const baseImgStyle = {
     width: "100%",
     height: "100%",
-    margin: 10,
     maxWidth: dim.width,
     maxHeight: dim.height
   };
   const imageStyle = StyleSheet.flatten([
     baseImgStyle,
-    imgProps.previewImageStyle
+    _.get(imgProps, "previewImageProps.style", {})
   ]);
   return (
     <Modal
@@ -160,40 +169,43 @@ const PreviewImage = (props: any) => {
       {...imgProps.previewProps}
     >
       <View style={modalStyle}>
-        <Image
-          resizeMode={"contain"}
-          {...imgProps}
-          {...imgProps.previewImageProps}
-          style={imageStyle}
-          preview={false}
-        />
-        <Button
-          style={{
-            minWidth: 40,
-            minHeight: 40,
-            width: 40,
-            height: 40,
-            position: "absolute",
-            top: 15,
-            left: 15,
-            backgroundColor: "rgba(255,255,255,1)",
-            borderRadius: 99,
-            padding: 0,
-            paddingLeft: 0,
-            paddingRight: 0
-          }}
-          onPress={onRequestClose}
-        >
-          <Icon
-            source={"AntDesign"}
-            name={"arrowleft"}
-            size={30}
-            style={{
-              margin: 5
-            }}
+        <View style={wrapperStyle}>
+          <Image
+            resizeMode={"contain"}
+            {...imgProps}
+            {...imgProps.previewImageProps}
+            style={imageStyle}
+            preview={false}
           />
-        </Button>
+        </View>
       </View>
+      <Button
+        style={{
+          minWidth: 40,
+          minHeight: 40,
+          margin: 0,
+          width: 40,
+          height: 40,
+          position: "absolute",
+          top: 15,
+          left: 15,
+          backgroundColor: "rgba(255,255,255,1)",
+          borderRadius: 99,
+          padding: 0,
+          paddingLeft: 0,
+          paddingRight: 0
+        }}
+        onPress={onRequestClose}
+      >
+        <Icon
+          source={"AntDesign"}
+          name={"arrowleft"}
+          size={30}
+          style={{
+            margin: 5
+          }}
+        />
+      </Button>
     </Modal>
   );
 };

@@ -34,7 +34,7 @@ export interface ISelectProps {
   itemProps?: IButtonProps;
 }
 
-const formatedItems = (props: ISelectProps) => {
+export const formatedItems = (props: ISelectProps | any) => {
   const labelPath = _.get(props, "labelPath", "label");
   const valuePath = _.get(props, "valuePath", "value");
   const items = _.get(props, "items", []);
@@ -55,7 +55,7 @@ export default observer((props: ISelectProps) => {
     search: "",
     items: []
   });
-  const baseStyle: TextStyle = {
+  const baseStyle: ViewStyle = {
     margin: 4,
     paddingLeft: 10,
     paddingRight: 10,

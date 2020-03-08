@@ -4,6 +4,9 @@ import { StyleSheet, TextStyle } from "react-native";
 import Theme from "../../theme";
 import Select from "../Select";
 import Text from "../Text";
+import { randomStr } from "@src/libs/util";
+import RadioGroup from "../RadioGroup";
+import Input from "../Input";
 
 interface IFieldProps {
   label?: string;
@@ -24,7 +27,6 @@ export default (props: IFieldProps) => {
     error: false,
     init: true
   });
-  const Component = props.children.type;
   const defLabelStyle: TextStyle = {
     fontSize: Theme.UIFontSize,
     color: "#757575",
@@ -40,23 +42,28 @@ export default (props: IFieldProps) => {
     defErrorLabelStyle,
     Theme.UILabel
   ]);
-  const handleOnChange = value => {
-    onChange && onChange(value);
-    props.setValue(value);
-  };
-  const childprops = _.cloneDeep(_.get(props, "children.props", {}));
+
+  const Component = props.children.type;
+  const childprops = _.clone(_.get(props, "children.props", {}));
   childprops.readonly = readonly;
 
+  const handleOnChange = value => {
+    props.onChange && props.onChange(value);
+    props.setValue(value);
+  };
   switch (Component) {
     case Select:
       childprops.value = _.get(props, "value", "");
       childprops.onChangeText = handleOnChange;
       childprops.searchProps = {
-        placeholder: "Search " + label
+        placeholder: "Search " + props.label
       };
       break;
-
-    default:
+    case RadioGroup:
+      childprops.value = _.get(props, "value", "");
+      childprops.onChangeText = handleOnChange;
+      break;
+    case Input:
       childprops.value = _.get(props, "value", "");
       childprops.onChangeText = handleOnChange;
       break;

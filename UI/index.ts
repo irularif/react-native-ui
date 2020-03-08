@@ -19,3 +19,5 @@ export { default as TabBar } from "./TabBar";
 export { default as MapView, Marker } from "./MapView";
 export { default as Modal } from "./Modal";
 export { default as Select } from "./Select";
+export { default as Radio } from "./Radio";
+export { default as RadioGroup } from "./RadioGroup";

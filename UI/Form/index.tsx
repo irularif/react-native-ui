@@ -49,14 +49,25 @@ export default observer((props: IFromProps) => {
 
 const RenderChild = observer((props: any) => {
   const { data, child, setValue, onSubmit, meta } = props;
-  if (child.type === Field) {
+  if (Array.isArray(child)) {
+    return child.map(el => (
+      <RenderChild
+        data={data}
+        setValue={setValue}
+        child={el}
+        key={randomStr()}
+        onSubmit={onSubmit}
+        meta={meta}
+      />
+    ));
+  } else if (child.type === Field) {
     let custProps: any = child.props;
     let val = true;
-    if (child.props.isRequired) {
-      val = !!_.get(data, child.props.path, null);
+    if (custProps.isRequired) {
+      val = !!_.get(data, custProps.path, null);
     }
 
-    meta.fields[child.props.path] = val;
+    meta.fields[custProps.path] = val;
     const defaultSetValue = (value: any, path: any) => {
       meta.fields[path] = !!value;
       if (!!setValue) setValue(value, path);
@@ -70,15 +81,15 @@ const RenderChild = observer((props: any) => {
     };
     custProps = {
       ...custProps,
-      isValid: meta.fields[child.props.path],
-      value: _.get(data, child.props.path, ""),
-      setValue: (value: any) => defaultSetValue(value, child.props.path)
+      isValid: meta.fields[custProps.path],
+      value: _.get(data, custProps.path, ""),
+      setValue: (value: any) => defaultSetValue(value, custProps.path)
     };
     const Component = child.type;
     return <Component {...custProps} />;
   } else if (child.type === Button) {
     let custProps: any = child.props;
-    if (child.props.type == "Submit") {
+    if (custProps.type == "Submit") {
       const onPress = e => {
         let i = 0;
         Object.keys(meta.fields).map(e => {
@@ -101,6 +112,31 @@ const RenderChild = observer((props: any) => {
     return child;
   } else {
     const Component = child.type;
-    return <Component {...child.props} />;
+    const children = child.props.children;
+    return (
+      <Component {...child.props}>
+        {Array.isArray(children) ? (
+          children.map(el => (
+            <RenderChild
+              data={data}
+              setValue={setValue}
+              child={el}
+              key={randomStr()}
+              onSubmit={onSubmit}
+              meta={meta}
+            />
+          ))
+        ) : (
+          <RenderChild
+            data={data}
+            setValue={setValue}
+            child={children}
+            key={randomStr()}
+            onSubmit={onSubmit}
+            meta={meta}
+          />
+        )}
+      </Component>
+    );
   }
 });

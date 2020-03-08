@@ -1,6 +1,5 @@
 import _ from "lodash";
-import { toJS } from "mobx";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import MapViewNative, {
   MapViewProps as MapViewPropsOrigin,
   Marker as MarkerOrigin,

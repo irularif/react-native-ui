@@ -1,12 +1,11 @@
-import React from "react";
-import View from "../View";
-import Icon, { IIconProps } from "../Icon";
-import Button from "../Button";
-import { NavigationActions } from "react-navigation";
-import Text from "../Text";
 import Theme from "@src/libs/theme";
-import { ViewStyle, StyleSheet, SafeAreaView } from "react-native";
+import React from "react";
+import { StyleSheet, ViewStyle } from "react-native";
 import { useNavigation } from "react-navigation-hooks";
+import Button from "../Button";
+import Icon, { IIconProps } from "../Icon";
+import Text from "../Text";
+import View from "../View";
 
 export interface IMenuProps {
   label?: string;

@@ -1,15 +1,13 @@
 import Theme from "@src/libs/theme";
-import _ from "lodash";
-import React, { useEffect, useRef, useState } from "react";
+import { randomStr } from "@src/libs/util";
+import { observer, useObservable } from "mobx-react-lite";
+import React, { useEffect, useRef } from "react";
 import { Dimensions } from "react-native";
 import Carousel, {
   CarouselProps as OriginCarouselProps,
   Pagination as PaginationOrigin,
   PaginationProps as PaginationPropsOrigin
 } from "react-native-snap-carousel";
-import View from "../View";
-import { randomStr } from "@src/libs/util";
-import { useObservable, observer } from "mobx-react-lite";
 
 export interface CarouselProps extends OriginCarouselProps<any> {
   children?: any;

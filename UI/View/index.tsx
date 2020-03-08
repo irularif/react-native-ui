@@ -3,15 +3,17 @@ import {
   Animated,
   KeyboardAvoidingView,
   KeyboardAvoidingViewProps,
-  SafeAreaView,
   ScrollViewProps,
   StyleSheet,
   View,
-  ViewProps as OriViewProps
+  ViewProps as OriViewProps,
+  ScrollView
 } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
-import { SafeAreaViewProps } from "react-navigation";
 import Theme from "../../theme";
+import {
+  SafeAreaView,
+  SafeAreaViewProps
+} from "react-native-safe-area-context";
 
 export interface IViewProps
   extends OriViewProps,
@@ -37,7 +39,7 @@ export default (props: IViewProps) => {
     case "AnimatedView":
       return <Animated.View ref={childRef} {...props} style={cstyle} />;
     case "SafeAreaView":
-      return <SafeAreaView ref={childRef} {...props} style={cstyle} />;
+      return <SafeAreaView {...(props as any)} style={cstyle} />;
     case "ScrollView":
       return (
         <ScrollView

@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from "react";
-import View, { IViewProps } from "../View";
 import _ from "lodash";
+import { observer, useObservable } from "mobx-react-lite";
+import React from "react";
 import { randomStr } from "../../util/index";
-import Field from "../Field";
 import Button from "../Button";
-import { useObservable, observer } from "mobx-react-lite";
-import { toJS } from "mobx";
+import Field from "../Field";
+import View, { IViewProps } from "../View";
 
 export interface IFromProps extends IViewProps {
   data?: any;

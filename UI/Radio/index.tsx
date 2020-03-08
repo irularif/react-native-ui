@@ -1,16 +1,9 @@
+import Theme from "@src/libs/theme";
 import { observer } from "mobx-react-lite";
 import React from "react";
-import {
-  Text,
-  TouchableOpacity,
-  View,
-  StyleSheet,
-  ViewStyle,
-  TextStyle
-} from "react-native";
-import Icon from "../Icon";
-import Theme from "@src/libs/theme";
+import { StyleSheet, Text, TextStyle, ViewStyle } from "react-native";
 import Button from "../Button";
+import Icon from "../Icon";
 
 export type IRadioModeType = "default" | "checkbox";
 

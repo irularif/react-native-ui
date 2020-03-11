@@ -7,18 +7,14 @@ import {
   StyleSheet,
   View,
   ViewProps as OriViewProps,
+  SafeAreaView,
   ScrollView
 } from "react-native";
 import Theme from "../../theme";
-import {
-  SafeAreaView,
-  SafeAreaViewProps
-} from "react-native-safe-area-context";
 
 export interface IViewProps
   extends OriViewProps,
     ScrollViewProps,
-    SafeAreaViewProps,
     KeyboardAvoidingViewProps {
   type?:
     | "View"
@@ -28,6 +24,7 @@ export interface IViewProps
     | "KeyboardAvoidingView";
   shadow?: boolean;
   childRef?: any;
+  children?: any;
 }
 
 export default (props: IViewProps) => {

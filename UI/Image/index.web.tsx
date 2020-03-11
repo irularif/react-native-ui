@@ -75,7 +75,6 @@ const Image = (props: IImageProps) => {
   };
   const onError = e => {
     const err = _.get(e, "nativeEvent.error", "");
-    console.log(err);
     if (!!err) setError(true);
   };
   return (

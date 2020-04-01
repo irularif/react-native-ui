@@ -1,7 +1,7 @@
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
 import { StyleSheet, TextStyle } from "react-native";
-import Theme from "../../appearance/Theme";
+import Theme from "../../theme";
 import Input from "../Input";
 import RadioGroup from "../RadioGroup";
 import Select from "../Select";

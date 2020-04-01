@@ -1,5 +1,4 @@
 import Constants from "expo-constants";
-import { observer } from "mobx-react-lite";
 import React from "react";
 import {
   Modal,
@@ -14,7 +13,7 @@ export interface ModalProps extends ModalPropsOrigin {
   children?: any;
 }
 
-export default observer((props: ModalProps) => {
+export default (props: ModalProps) => {
   const { style, children } = props;
   const marginTop = Platform.OS === "android" ? -Constants.statusBarHeight : 0;
   const baseStyle = {
@@ -33,4 +32,4 @@ export default observer((props: ModalProps) => {
       </Screen>
     </Modal>
   );
-});
+};

@@ -1,5 +1,5 @@
-import Theme from "@src/libs/theme";
-import { randomStr } from "@src/libs/util";
+import Theme from "../../theme";
+import { randomStr } from "../../utils";
 import _ from "lodash";
 import { observer, useObservable } from "mobx-react-lite";
 import React, { useEffect } from "react";

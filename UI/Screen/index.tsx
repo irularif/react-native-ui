@@ -7,7 +7,7 @@ import {
   ViewProps,
   ViewStyle
 } from "react-native";
-import Theme from "../../appearance/Theme";
+import Theme from "../../theme";
 import View from "../View";
 
 export interface IScreenProps extends ViewProps {

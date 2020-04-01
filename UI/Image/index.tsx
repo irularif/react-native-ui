@@ -8,7 +8,7 @@ import {
   Dimensions
 } from "react-native";
 import _ from "lodash";
-import Theme from "../../appearance/Theme";
+import Theme from "../../theme";
 import Modal, { ModalProps } from "../Modal";
 import View from "../View";
 import Button from "../Button";

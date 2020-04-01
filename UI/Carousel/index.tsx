@@ -1,4 +1,4 @@
-import Theme from "../../appearance/theme";
+import Theme from "../../theme";
 import { randomStr } from "../../utils";
 import { observer, useObservable } from "mobx-react-lite";
 import React, { useEffect, useRef } from "react";

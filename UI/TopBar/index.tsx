@@ -10,7 +10,7 @@ import {
 import Text from "../Text";
 import Button from "../Button";
 import Icon from "../Icon";
-import Theme from "../../appearance/Theme";
+import Theme from "../../theme";
 import { useNavigation } from "react-navigation-hooks";
 
 export interface ITopBarProps extends ViewProps {

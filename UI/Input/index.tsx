@@ -6,7 +6,7 @@ import {
   TextStyle
 } from "react-native";
 import Text from "../Text";
-import Theme from "../../appearance/Theme";
+import Theme from "../../theme";
 
 export type InputType =
   | "text"

@@ -1,4 +1,4 @@
-import Theme from "@src/libs/theme";
+import Theme from "../../theme";
 import { observer } from "mobx-react-lite";
 import React from "react";
 import { StyleSheet, Text, TextStyle, ViewStyle } from "react-native";

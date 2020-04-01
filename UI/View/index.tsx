@@ -10,7 +10,7 @@ import {
   SafeAreaView,
   ScrollView
 } from "react-native";
-import Theme from "../../appearance/Theme";
+import Theme from "../../theme";
 
 export interface IViewProps
   extends OriViewProps,

@@ -6,7 +6,7 @@ import {
   StyleSheet,
   ViewStyle
 } from "react-native";
-import Theme from "../../appearance/Theme";
+import Theme from "../../theme";
 
 export interface IButtonProps extends TouchableOpacityProps {
   shadow?: Boolean;

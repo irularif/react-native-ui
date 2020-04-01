@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { ViewStyle, TextStyle, StyleSheet } from "react-native";
-import Theme from "../../appearance/Theme";
+import Theme from "../../theme";
 import Button, { IButtonProps } from "../Button";
 import Text, { ITextProps } from "../Text";
 import { useObservable, observer } from "mobx-react-lite";

@@ -6,5 +6,18 @@
   "repository": "https://github.com/irularif/react-native-ui.git",
   "author": "IrulArif <masterirul@gmail.com>",
   "license": "MIT",
-  "private": true
+  "private": true,
+  "dependencies": {
+    "@expo/vector-icons": "^10.0.6",
+    "expo-constants": "^9.0.0",
+    "lodash": "^4.17.15",
+    "mobx": "^5.15.4",
+    "mobx-react-lite": "^1.5.2",
+    "react": "^16.13.1",
+    "react-native": "^0.62.0",
+    "react-native-maps": "^0.27.1",
+    "react-native-snap-carousel": "^3.8.4",
+    "react-native-webview": "^9.0.2",
+    "react-navigation-hooks": "^1.1.0"
+  }
 }

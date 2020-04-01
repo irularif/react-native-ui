@@ -2,7 +2,7 @@ import React from "react";
 import { WebView, WebViewProps } from "react-native-webview";
 import View from "../View";
 import Image from "../Image";
-import Theme from "@src/libs/theme";
+import Theme from "../../theme";
 import Spinner from "../Spinner";
 import { StyleSheet } from "react-native";
 

@@ -6,7 +6,7 @@ import {
   TextStyle
 } from "react-native";
 import _ from "lodash";
-import Theme from "../../theme";
+import Theme from "../../appearance/Theme";
 
 export interface ITextProps extends OriginTextProps {
   children: any;

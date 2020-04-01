@@ -1,5 +1,5 @@
-import Theme from "@src/libs/theme";
-import { randomStr } from "@src/libs/util";
+import Theme from "../../appearance/theme";
+import { randomStr } from "../../utils";
 import { observer, useObservable } from "mobx-react-lite";
 import React, { useEffect, useRef } from "react";
 import { Dimensions } from "react-native";
@@ -22,7 +22,7 @@ export default observer((props: CarouselProps) => {
     activeSlide: 0,
     dataLength: data.length
   });
-  const onSnapItem = index => {
+  const onSnapItem = (index: number) => {
     meta.activeSlide = index;
     carouselProps.onSnapToItem && carouselProps.onSnapToItem(index);
   };

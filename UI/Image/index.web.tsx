@@ -8,7 +8,7 @@ import {
   Dimensions
 } from "react-native";
 import _ from "lodash";
-import Theme from "../../theme";
+import Theme from "../../appearance/Theme";
 import Modal, { ModalProps } from "../Modal";
 import View from "../View";
 import Button from "../Button";
@@ -73,7 +73,7 @@ const Image = (props: IImageProps) => {
   const onPress = () => {
     setShow(!show);
   };
-  const onError = e => {
+  const onError = (e: any) => {
     const err = _.get(e, "nativeEvent.error", "");
     if (!!err) setError(true);
   };

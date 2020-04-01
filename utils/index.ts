@@ -1,3 +1,30 @@
+import { format as formatFNS, parseISO } from "date-fns";
+import * as locales from "date-fns/locale";
+
+const dateParse = (value: any) => {
+  if (typeof value === "string") {
+    return parseISO(value);
+  }
+  return value;
+};
+const dateFormat = (value: any, format?: string) => {
+  const locale = "enUS";
+  const inputFormat = format ? format : "dd MMM yyyy - HH:mm";
+  if (typeof value === "string") {
+    return formatFNS(parseISO(value), inputFormat, {
+      locale: locales[locale]
+    });
+  }
+
+  try {
+    return formatFNS(value, inputFormat, {
+      locale: locales[locale]
+    });
+  } catch (e) {
+    return value;
+  }
+};
+
 const randomStr = (prefix: string = randomChar()) =>
   `${prefix ? prefix + "-" : ""}${new Date().getTime()}${Math.floor(
     10000000 + Math.random() * 90000000
@@ -54,4 +81,4 @@ const fuzzyMatch = (strA: string, strB: string, fuzziness = 0) => {
 
   return false;
 };
-export { randomChar, randomStr, truncateStr, fuzzyMatch };
+export { randomChar, randomStr, truncateStr, fuzzyMatch, dateParse, dateFormat };

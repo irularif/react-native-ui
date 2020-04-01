@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { ViewStyle, TextStyle, StyleSheet } from "react-native";
-import Theme from "@src/libs/theme";
+import Theme from "../../appearance/Theme";
 import Button, { IButtonProps } from "../Button";
 import Text, { ITextProps } from "../Text";
 import { useObservable, observer } from "mobx-react-lite";
@@ -10,9 +10,8 @@ import View, { IViewProps } from "../View";
 import TopBar from "../TopBar";
 import FlatList, { IFlatListProps } from "../FlatList";
 import _ from "lodash";
-import { randomStr } from "@src/libs/util";
 import Icon from "../Icon";
-import { fuzzyMatch } from "../../util";
+import { fuzzyMatch, randomStr } from "../../utils";
 
 interface IItemProps {
   label: any;

@@ -1,6 +1,4 @@
-import { default as overideTheme } from "../theme";
-
-const Theme = {
+export default {
   UIShadow: {
     shadowColor: "#000",
     shadowOffset: {
@@ -24,7 +22,5 @@ const Theme = {
   UIInput: {},
   UILabel: {},
   UIButton: {},
-  ...overideTheme
+  ...(require("../config/theme") || {})
 };
-
-export default Theme;

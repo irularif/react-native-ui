@@ -1,7 +1,7 @@
 import _ from "lodash";
 import { observer, useObservable } from "mobx-react-lite";
 import React from "react";
-import { randomStr } from "../../util/index";
+import { randomStr } from "../../utils";
 import Button from "../Button";
 import Field from "../Field";
 import View, { IViewProps } from "../View";
@@ -9,8 +9,8 @@ import View, { IViewProps } from "../View";
 export interface IFromProps extends IViewProps {
   data?: any;
   style?: any;
-  setValue?: (value, path) => void;
-  onSubmit?: (data) => void;
+  setValue?: (value: any, path: string) => void;
+  onSubmit?: (data: any) => void;
   children?: any;
 }
 
@@ -89,7 +89,7 @@ const RenderChild = observer((props: any) => {
   } else if (child.type === Button) {
     let custProps: any = child.props;
     if (custProps.type == "Submit") {
-      const onPress = e => {
+      const onPress = () => {
         let i = 0;
         Object.keys(meta.fields).map(e => {
           if (!meta.fields[e]) {

@@ -1,7 +1,7 @@
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
 import { StyleSheet, TextStyle } from "react-native";
-import Theme from "../../theme";
+import Theme from "../../appearance/Theme";
 import Input from "../Input";
 import RadioGroup from "../RadioGroup";
 import Select from "../Select";
@@ -17,7 +17,7 @@ interface IFieldProps {
   isRequired?: boolean;
   isValid?: boolean;
   readonly?: boolean;
-  onChange?: (value) => void;
+  onChange?: (value: any) => void;
 }
 
 export default (props: IFieldProps) => {
@@ -46,7 +46,7 @@ export default (props: IFieldProps) => {
   const childprops = _.clone(_.get(props, "children.props", {}));
   childprops.readonly = readonly;
 
-  const handleOnChange = value => {
+  const handleOnChange = (value: any) => {
     props.onChange && props.onChange(value);
     props.setValue(value);
   };

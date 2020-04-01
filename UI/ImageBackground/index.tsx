@@ -5,7 +5,7 @@ import {
   ImageBackground,
   ImageBackgroundProps as OriginImageBackgroundProps
 } from "react-native";
-import Theme from "../../theme";
+import Theme from "../../appearance/Theme";
 
 export interface IImageBackgroundProps extends OriginImageBackgroundProps {}
 

@@ -1,0 +1,10 @@
+{
+  "name": "react-native-ui",
+  "version": "1.0.0",
+  "description": "simple react native component ui",
+  "main": "index.ts",
+  "repository": "https://github.com/irularif/react-native-ui.git",
+  "author": "IrulArif <masterirul@gmail.com>",
+  "license": "MIT",
+  "private": true
+}
